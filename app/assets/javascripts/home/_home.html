@@ -1,0 +1,120 @@
+<!--Left sidebar-->
+<div class="col-md-3 sidebar" id="left-sidebar">
+    <div class="list-group sidebar-block">
+        <a href="#" class="list-group-item active right-angle">
+            {{ faculty.person }}
+        </a>
+        <a href="#" class="list-group-item">Head of faculty</a>
+        <select class="form-control" ng-options="faculty.id as faculty.full_name for faculty in faculties track by faculty.id" ng-model="facultySelection"></select>
+
+    </div>
+    <div class="list-group sidebar-block">
+        <a href="#" class="list-group-item active right-angle">
+            Manage hostels
+        </a>
+        <div ng-repeat="hostel in hostels">
+            <button ng-click="deleteHostel(hostel.number)" class="list-group-item">Delete hostel {{hostel.number}} from our faculty</button>
+        </div>
+        <div ng-repeat="hostel in hostelsNotByFaculty">
+            <button ng-click="createHostel(hostel.number)" class="list-group-item">Add hostel {{hostel.number}} to our faculty</button>
+        </div>
+    </div>
+    <div>
+        <p>Create student</p>
+        <form name="myform">
+            <div class="form-group">
+                <input type="text" ng-model='name' class="form-control" placeholder="Name"  ng-required="true" />
+            </div>
+            <div class="form-group">
+                <select class="form-control" placeholder="Age" ng-required="true" ng-model="age">
+                    <option value="">Please select age of student</option>
+                    <option>16</option>
+                    <option>17</option>
+                    <option>18</option>
+                    <option>19</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <input type="text" ng-model='benefit' class="form-control" placeholder="Benefit" />
+            </div>
+            <div class="form-group">
+                <button class="btn" ng-click="myform.$valid && save()">Save</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<div class="col-md-6">
+    <div class="page-header">
+        <h1> Hostels for our faculty </h1>
+        <hr />
+        <div class="row">
+            <div ng-repeat="hostel in hostels" class="col-lg-3 col-md-6">
+                <div class="panel panel-primary">
+                    <div class="panel-heading">
+                        <div class="row">
+                            <div class="col-xs-3">
+                                <i class="fa fa-comments fa-5x"></i>
+                            </div>
+                            <div class="col-xs-9 text-right">
+                                <div class="huge">{{hostel.roominess - hostel.number_occupied}}</div>
+                                <div>Number: {{hostel.number}} </div>
+                            </div>
+                        </div>
+                    </div>
+                    <a href="#/hostels/{{hostel.number}}?faculty={{ faculty.id }}">
+                        <div class="panel-footer">
+                            <span class="pull-left">View Details</span>
+                            <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+                            <div class="clearfix"></div>
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </div>
+        <!-- /.row -->
+        <h1> Hostels (other) </h1>
+        <hr />
+        <div class="row">
+            <div ng-repeat="hostel in hostelsNotByFaculty" class="col-lg-3 col-md-6">
+                <div class="panel panel-primary">
+                    <div class="panel-heading">
+                        <div class="row">
+                            <div class="col-xs-3">
+                                <i class="fa fa-comments fa-5x"></i>
+                            </div>
+                            <div class="col-xs-9 text-right">
+                                <div class="huge">{{hostel.roominess - hostel.number_occupied}}</div>
+                                <div>Number: {{hostel.number}} </div>
+                            </div>
+                        </div>
+                    </div>
+                    <a href="#">
+                        <div class="panel-footer">
+                            <span class="pull-left">View Details</span>
+                            <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+                            <div class="clearfix"></div>
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </div>
+        <h3> Count of people with benefits that was not placed </h3>
+        <div ng-repeat="student in alreadyStudents">
+           {{student.count}} students
+        </div>
+    </div>
+</div>
+<!--Right sidebar-->
+<div class="col-md-3  sidebar" id="right-sidebar">
+    <div class="list-group sidebar-block">
+        <a href="#" class="list-group-item active right-angle">
+            Students
+            <span class="badge">All</span>
+        </a>
+        <div ng-repeat="student in students" ng-if="student.hostel_id === 0">
+            <a href="#" class="list-group-item">{{student.name}}
+            </a>
+        </div>
+    </div>
+</div>

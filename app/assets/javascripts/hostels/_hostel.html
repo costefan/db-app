@@ -1,0 +1,72 @@
+<div class="row">
+        <div class="col-md-3">
+            <a href="#/home" class="btn btn-primary">Back</a>
+        </div>
+        <div class="col-md-6 ">
+            <div class="container">
+                <h1>Hostel number {{hostel.number}}:</h1>
+                <h3>Head name: {{hostel.head_name}}</h3>
+                <p>Roominess: {{hostel.roominess}}</p>
+                <p>Number of occupied places: {{hostel.number_occupied}}</p>
+                <p>Number of free places: {{hostel.roominess - hostel.number_occupied}}</p>
+                <ul>
+                    <div ng-repeat="faculty in faculties">
+                        <li>{{faculty.full_name}}</li>
+                    </div>
+                </ul>
+                Average of free places in hostels :{{avg}}
+            </div>
+
+            <h3> Count of placed students by faculty </h3>
+            <table class="table table-striped">
+                <thead>
+                <tr>
+                    <th>Name of faculty</th>
+                    <th>Count of already placed students</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr ng-repeat="faculty in countStudents">
+                    <td>{{faculty.full_name}}</td>
+                    <td>{{faculty.count}}</td>
+                </tr>
+                </tbody>
+            </table>
+            <h3> Already placed students </h3>
+            <table class="table table-striped">
+                <thead>
+                <tr>
+                    <th>Name of faculty</th>
+                    <th>Student name</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr ng-repeat="student in placedStudents">
+                    <td>{{student.full_name}}</td>
+                    <td>{{student.name}}</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+            <div class="col-md-3  sidebar" id="right-sidebar">
+                <p><strong>Add students to hostel {{hostel.number}}</strong></p>
+                <div class="list-group sidebar-block">
+                    <a href="#" class="list-group-item active right-angle">
+                        Students with benefits
+                        <span class="badge">{{ studentsWithBenefits.length }}</span>
+                    </a>
+                    <div ng-repeat="student in studentsWithBenefits">
+                        <button ng-click="addStudent(student.id, 1)" onclick="this.parentElement.style.display='none';" class="list-group-item">{{student.name}} | {{student.benefit_name}}
+                        </button>
+                    </div>
+                    <a href="#" class="list-group-item active right-angle">
+                        Students without benefits
+                        <span class="badge">{{ studentsWithoutBenefits.length }}</span>
+                    </a>
+                    <div ng-repeat="student in studentsWithoutBenefits">
+                        <button ng-click="addStudent(student.id, 2)" onclick="this.parentElement.style.display='none';" class="list-group-item">{{student.name}}
+                        </button>
+                    </div>
+                </div>
+            </div>
+</div>
